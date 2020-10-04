@@ -542,12 +542,10 @@ public:
     void make_context_current() { glfwMakeContextCurrent(this->__window); }
     void show() { glfwShowWindow(this->__window); }
     void hide() { glfwHideWindow(this->__window); }
-    void attention() { glfwRequestWindowAttention(this->__window); }
-
+    void request_attention() { glfwRequestWindowAttention(this->__window); }
 
     virtual ~window()
     {
-        
         if (this->__window_name != nullptr)
             delete[] this->__window_name;
         if (this->__window != nullptr)
