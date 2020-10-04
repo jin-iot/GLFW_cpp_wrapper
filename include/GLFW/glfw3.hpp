@@ -12,17 +12,17 @@ namespace input
 {
 enum
 {
-    RELEASE                = 0,
-    PRESS                  = 1,
-    REPEAT                 = 2
+    RELEASE                = GLFW_RELEASE,
+    PRESS                  = GLFW_PRESS,
+    REPEAT                 = GLFW_REPEAT
 };
 enum hat_state
 {
-    HAT_CENTERED           = 0,
-    HAT_UP                 = 1,
-    HAT_RIGHT              = 2,
-    HAT_DOWN               = 4,
-    HAT_LEFT               = 8,
+    HAT_CENTERED           = GLFW_HAT_CENTERED,
+    HAT_UP                 = GLFW_HAT_UP,
+    HAT_RIGHT              = GLFW_HAT_RIGHT,
+    HAT_DOWN               = GLFW_HAT_DOWN,
+    HAT_LEFT               = GLFW_HAT_LEFT,
     HAT_RIGHT_UP           = (HAT_RIGHT | HAT_UP),
     HAT_RIGHT_DOWN         = (HAT_RIGHT | HAT_DOWN),
     HAT_LEFT_UP            = (HAT_LEFT  | HAT_UP),
@@ -295,12 +295,12 @@ public:
         this->__img->pixels = new uint8_t[sizeof(_buffers)];
         std::memcpy(this->__img->pixels, _buffers, sizeof(_buffers));
     }
-    image(size_2d& _size, uint8_t* _buffers)
+    image(size_2d& _size, uint8_t* _buffers, size_t _buf_size)
     {
         this->__img->width = _size.width();
         this->__img->height = _size.height();
-        this->__img->pixels = new uint8_t[sizeof(_buffers)];
-        std::memcpy(this->__img->pixels, _buffers, sizeof(_buffers));
+        this->__img->pixels = new uint8_t[_buf_size];
+        std::memcpy(this->__img->pixels, _buffers, _buf_size);
     }
     uint8_t* data() { return this->__img->pixels; }
     const size_2d size() { return size_2d(this->__img->width, this->__img->height); }
@@ -346,7 +346,7 @@ public:
     
     virtual ~monitor()
     {
-            
+
     }
 };
 
