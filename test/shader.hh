@@ -1,5 +1,5 @@
-#ifndef _SHADER_HPP_
-#define _SHADER_HPP_
+#ifndef _SHADER_HH_
+#define _SHADER_HH_
 
 #include <string>
 GLuint load_shaders_offline(const char * vertex_file_path,const char * fragment_file_path);
