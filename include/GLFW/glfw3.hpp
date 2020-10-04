@@ -284,7 +284,7 @@ struct size_2d : public __base_size<int>
 class image
 {
     friend class window;
-private:
+protected:
     GLFWimage* __img;
 
 public:
@@ -332,11 +332,27 @@ public:
         glfwGetMonitorPos(this->__monitor, &this->__xpos, &this->__ypos);
     }
     constexpr GLFWmonitor* c_monitor() { return this->__monitor; }
+    template<typename _tpl_vector>
+    static const _tpl_vector monitors()
+    {
+        int count_monitors = 0;
+        auto _monitors = glfwGetMonitors(&count_monitors);
+        _tpl_vector _monitors_vec(count_monitors);
+        for (auto idx_m = 0; idx_m < count_monitors; idx_m++)
+            _monitors.emplace_back(monitor(_monitors_vec[idx_m]));
+        return _monitors;
+    }
+
+    
+    virtual ~monitor()
+    {
+            
+    }
 };
 
 class window
 {
-private:
+protected:
     GLFWwindow* __window;
     GLFWmonitor* __monitor;
     size_2d __window_size;
