@@ -458,7 +458,8 @@ public:
     
     bool open()
     {
-        glfwCreateWindow(
+        printf("fucking %d %d %s\n", __window_size.width(), __window_size.height(), __window_name);
+        this->__window = glfwCreateWindow(
             this->__window_size.width(),
             this->__window_size.height(),
             this->__window_name,
@@ -543,6 +544,11 @@ public:
     void show() { glfwShowWindow(this->__window); }
     void hide() { glfwHideWindow(this->__window); }
     void request_attention() { glfwRequestWindowAttention(this->__window); }
+    bool is_current_context()
+    {
+        return (__ptr_t)this->__window == (__ptr_t)glfwGetCurrentContext();
+    }
+
 
     virtual ~window()
     {
