@@ -1,6 +1,6 @@
 add_library(shader_lib STATIC shader.cc)
 
-set(DEPS ${CONAN_LIBS} OpenCL OpenGL EGL shader_lib)
+set(DEPS ${CONAN_LIBS} OpenGL EGL shader_lib)
 
 add_executable(01_hell 01_hell.cc)
 set_property(TARGET 01_hell PROPERTY CXX_STANDARD 17)
