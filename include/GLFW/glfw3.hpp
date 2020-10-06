@@ -337,10 +337,10 @@ public:
     {
         int count_monitors = 0;
         auto _monitors = glfwGetMonitors(&count_monitors);
-        _tpl_vector _monitors_vec(count_monitors);
+        _tpl_vector _monitors_vec(&count_monitors);
         for (auto idx_m = 0; idx_m < count_monitors; idx_m++)
-            _monitors.emplace_back(monitor(_monitors_vec[idx_m]));
-        return _monitors;
+            _monitors_vec.emplace_back(monitor(_monitors_vec[idx_m]));
+        return _monitors_vec;
     }
 
     
@@ -378,6 +378,8 @@ public:
             std::strcpy(this->__window_name, _window_name.c_str());
         }
         else this->__window_name = new char[0];
+        this->__monitor = nullptr;
+        this->__shared_window = nullptr;
     }
     window(size_2d _size,
         const char* _window_name)
@@ -390,6 +392,8 @@ public:
             std::strcpy(this->__window_name, _window_name);
         }
         else this->__window_name = new char[0];
+        this->__monitor = nullptr;
+        this->__shared_window = nullptr;
     }
 
     template<typename __stl_str_t>
@@ -404,6 +408,7 @@ public:
             std::strcpy(this->__window_name, _window_name.c_str());
         }
         else this->__window_name = new char[0];
+        this->__shared_window = nullptr;
     }
     window(size_2d _size,
         const char* _window_name, monitor& _monitor)
@@ -416,6 +421,7 @@ public:
             std::strcpy(this->__window_name, _window_name);
         }
         else this->__window_name = new char[0];
+        this->__shared_window = nullptr;
     }
 
     template<typename __stl_str_t>
@@ -430,6 +436,7 @@ public:
             std::strcpy(this->__window_name, _window_name.c_str());
         }
         else this->__window_name = new char[0];
+        this->__monitor = nullptr;
     }
     window(size_2d _size,
         const char* _window_name, window& _shared_window)
@@ -442,6 +449,7 @@ public:
             std::strcpy(this->__window_name, _window_name);
         }
         else this->__window_name = new char[0];
+        this->__monitor = nullptr;
     }
 
     template<typename __stl_str_t>
@@ -474,7 +482,6 @@ public:
     
     bool open()
     {
-        printf("fucking %d %d %s\n", __window_size.width(), __window_size.height(), __window_name);
         this->__window = glfwCreateWindow(
             this->__window_size.width(),
             this->__window_size.height(),
@@ -482,6 +489,7 @@ public:
             this->__monitor,
             this->__shared_window
         );
+
         if (this->__window != nullptr)
             this->__alive = true;
         return this->__window != nullptr;
